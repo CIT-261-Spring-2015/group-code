@@ -1,0 +1,155 @@
+<!--objects - deck, discard, player
+functions - draw(), discard(){switch player}, calculate(), callLastTurn(), shuffle()-->
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Card Game test</title>
+	<script type="text/javascript">
+		//initializes
+		var display, players, name, playerNumber, gameDeck, discardPile;
+		window.onload = function(){
+			display = document.getElementById('display');	
+			players = [];
+			discardPile = [];
+			
+			//creates new deck to play with 
+			gameDeck = new Deck();
+			
+			//creates the players object			
+			userName = document.getElementById('name').value;
+			playerNumber = document.getElementById('numberOfPlayers').value;
+			createPlayers(playerNumber);
+		}
+		//creates deck using literals
+		function Deck(){
+			var deck = [
+				{suit: "heart", type: "2", value: 2},
+				{suit: "heart", type: "3", value: 3},
+				{suit: "heart", type: "4", value: 4},
+				{suit: "heart", type: "5", value: 5},
+				{suit: "heart", type: "6", value: 6},
+				{suit: "heart", type: "7", value: 7},
+				{suit: "heart", type: "8", value: 8},
+				{suit: "heart", type: "9", value: 9},
+				{suit: "heart", type: "10", value: 10},
+				{suit: "heart", type: "jack", value: 10},
+				{suit: "heart", type: "queen", value: 10},
+				{suit: "heart", type: "king", value: 10},
+				{suit: "heart", type: "ace", value: 11},
+				
+				{suit: "diamond", type: "2", value: 2},
+				{suit: "diamond", type: "3", value: 3},
+				{suit: "diamond", type: "4", value: 4},
+				{suit: "diamond", type: "5", value: 5},
+				{suit: "diamond", type: "6", value: 6},
+				{suit: "diamond", type: "7", value: 7},
+				{suit: "diamond", type: "8", value: 8},
+				{suit: "diamond", type: "9", value: 9},
+				{suit: "diamond", type: "10", value: 10},
+				{suit: "diamond", type: "jack", value: 10},
+				{suit: "diamond", type: "queen", value: 10},
+				{suit: "diamond", type: "king", value: 10},
+				{suit: "diamond", type: "ace", value: 11},
+						
+				{suit: "spade", type: "2", value: 2},
+				{suit: "spade", type: "3", value: 3},
+				{suit: "spade", type: "4", value: 4},
+				{suit: "spade", type: "5", value: 5},
+				{suit: "spade", type: "6", value: 6},
+				{suit: "spade", type: "7", value: 7},
+				{suit: "spade", type: "8", value: 8},
+				{suit: "spade", type: "9", value: 9},
+				{suit: "spade", type: "10", value: 10},
+				{suit: "spade", type: "jack", value: 10},
+				{suit: "spade", type: "queen", value: 10},
+				{suit: "spade", type: "king", value: 10},
+				{suit: "spade", type: "ace", value: 11},
+				
+				{suit: "clubs", type: "2", value: 2},
+				{suit: "clubs", type: "3", value: 3},
+				{suit: "clubs", type: "4", value: 4},
+				{suit: "clubs", type: "5", value: 5},
+				{suit: "clubs", type: "6", value: 6},
+				{suit: "clubs", type: "7", value: 7},
+				{suit: "clubs", type: "8", value: 8},
+				{suit: "clubs", type: "9", value: 9},
+				{suit: "clubs", type: "10", value: 10},
+				{suit: "clubs", type: "jack", value: 10},
+				{suit: "clubs", type: "queen", value: 10},
+				{suit: "clubs", type: "king", value: 10},
+				{suit: "clubs", type: "ace", value: 11},		
+			];
+			return deck;
+		}
+		//loop to create the correct number of players, uses push to put on end of the array
+		function createPlayers(numOfPlayers){
+			var newPlayer;
+			for(var i = 0; i<= numOfPlayers-1; i++){
+				newPlayer = new Player(userName + (i + 1));
+				players.push(newPlayer);
+			}
+		}
+		//the function that creates the players
+		function Player(pName){
+			this.name = pName;
+			this.cards= [
+				{suit: "clubs", type: "jack", value: 10},
+				{suit: "diamonds", type: "queen", value: 10},
+				{suit: "clubs", type: "king", value: 10},
+						];
+			this.lifes = 3;	
+		}
+		
+		//calculates the score
+		function calculatePoints(){
+			var cards = players[0].cards;
+			var total = cards[0].value + cards[1].value + cards[2].value;
+			
+			var suit1 = cards[0].suit;
+			var suit2 = cards[1].suit;
+			var suit3 = cards[2].suit;
+			
+			
+			
+			display.innerHTML = "total of all: " + total;
+		}
+		
+		//just a simple display function
+		function seeResults(item){
+			display.innerHTML=JSON.stringify(item);		
+		}
+		//draws a random card. The deck is not shuffled, you are not grabbing the top card but rather a random one
+		function drawCard(){
+			var newCardIndex = Math.floor(Math.random()*(gameDeck.length -1)+1);	
+			var newCard = gameDeck[newCardIndex];
+			display.innerHTML ="You have drawn the " + newCard.type + " of " + newCard.suit + ". It is worth " + newCard.value;
+			
+			//discardPile.shift(newCard);
+			/*discardPile.shift(gameDeck[newCard]);
+			delete gameDeck[newCard];*/
+		}
+		function moveToDiscard(){
+			/*var usedCard = gameDeck.pop(0);	
+			discardPile.shift(usedCard);*/
+			discardPile[0] = gameDeck[0];
+			
+			
+		}
+	</script>
+</head>
+<body>
+	<input type="number" id="numberOfPlayers" value="3">
+	<input type="text" id="name" value="Richard">
+	
+<div id="display"></div>
+	<button type="button" onclick="seeResults(gameDeck)">See the Deck</button>
+	<button type="button" onclick="seeResults(players)">See the players</button>
+	<button type="button" onclick="calculatePoints()">See Points</button>
+	<button type="button" onclick="drawCard()">Draw a card</button>
+	<button type="button" onclick="seeResults(discardPile)">See the Discard pile</button>
+	<button type="button" onclick="moveToDiscard()">Discard</button>
+	
+</body>
+</html>
