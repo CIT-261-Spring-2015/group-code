@@ -137,6 +137,27 @@ functions - draw(), discard(){switch player}, calculate(), callLastTurn(), shuff
 			
 			
 		}
+		
+		function shuffle(){
+			var tempArr=[];
+			var n = gameDeck.length;
+			for(var i = 0; i < n-1; i++){
+				tempArr.push(gameDeck.splice(Math.floor(Math.random() * gameDeck.length), 1)[0]);
+			}
+			
+			tempArr.push(gameDeck[0]);
+			gameDeck = tempArr;
+			
+			/*var text = "";
+			for(var i = 0; i < gameDeck.length; i++){
+				text += gameDeck[i].type + " of " + gameDeck[i].suit + ", ";
+			}
+			*/
+			display.innerHTML = JSON.stringify(gameDeck);
+		}
+		function showDeckLength(){
+			display.innerHTML = gameDeck.length;	
+		}
 	</script>
 </head>
 <body>
@@ -150,6 +171,8 @@ functions - draw(), discard(){switch player}, calculate(), callLastTurn(), shuff
 	<button type="button" onclick="drawCard()">Draw a card</button>
 	<button type="button" onclick="seeResults(discardPile)">See the Discard pile</button>
 	<button type="button" onclick="moveToDiscard()">Discard</button>
+	<button type="button" onclick="shuffle()">Shuffle</button>
+	<button type="button" onclick="showDeckLength()">Show Length</button>
 	
 </body>
 </html>
