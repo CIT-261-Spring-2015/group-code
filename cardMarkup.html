@@ -8,7 +8,8 @@ functions - draw(), discard(){switch player}, calculate(), callLastTurn(), shuff
     <title>Card Game test</title>
 	<script type="text/javascript">
 		//initializes
-		var display, players, name, playerNumber, gameDeck, discardPile;
+		//these are global variables that can be called in any function; are initialized in the .onload below
+		var display, players, name, playerNumber, gameDeck, discardPile, playerCountBox;
 		window.onload = function(){
 			display = document.getElementById('display');	
 			players = [];
@@ -19,53 +20,61 @@ functions - draw(), discard(){switch player}, calculate(), callLastTurn(), shuff
 			
 			//creates the players object			
 			userName = document.getElementById('name').value;
-			playerNumber = document.getElementById('numberOfPlayers').value;
+			playerCountBox = document.getElementById('numberOfPlayers');
+			playerNumber = playerCountBox.value;
 			createPlayers(playerNumber);
+			
+/*			playerCountBox.addEventListener("change", function(){
+				playerNumber = playerCountBox.value;
+				createPlayers(playerNumber);
+			});*/
 		}
-		//creates deck using literals
+		
+		
+		//Deck Object - creates deck using literals
 		function Deck(){
 			var deck = [
-				{suit: "heart", type: "2", value: 2},
-				{suit: "heart", type: "3", value: 3},
-				{suit: "heart", type: "4", value: 4},
-				{suit: "heart", type: "5", value: 5},
-				{suit: "heart", type: "6", value: 6},
-				{suit: "heart", type: "7", value: 7},
-				{suit: "heart", type: "8", value: 8},
-				{suit: "heart", type: "9", value: 9},
-				{suit: "heart", type: "10", value: 10},
-				{suit: "heart", type: "jack", value: 10},
-				{suit: "heart", type: "queen", value: 10},
-				{suit: "heart", type: "king", value: 10},
-				{suit: "heart", type: "ace", value: 11},
+				{suit: "hearts", type: "2", value: 2},
+				{suit: "hearts", type: "3", value: 3},
+				{suit: "hearts", type: "4", value: 4},
+				{suit: "hearts", type: "5", value: 5},
+				{suit: "hearts", type: "6", value: 6},
+				{suit: "hearts", type: "7", value: 7},
+				{suit: "hearts", type: "8", value: 8},
+				{suit: "hearts", type: "9", value: 9},
+				{suit: "hearts", type: "10", value: 10},
+				{suit: "hearts", type: "jack", value: 10},
+				{suit: "hearts", type: "queen", value: 10},
+				{suit: "hearts", type: "king", value: 10},
+				{suit: "hearts", type: "ace", value: 11},
 				
-				{suit: "diamond", type: "2", value: 2},
-				{suit: "diamond", type: "3", value: 3},
-				{suit: "diamond", type: "4", value: 4},
-				{suit: "diamond", type: "5", value: 5},
-				{suit: "diamond", type: "6", value: 6},
-				{suit: "diamond", type: "7", value: 7},
-				{suit: "diamond", type: "8", value: 8},
-				{suit: "diamond", type: "9", value: 9},
-				{suit: "diamond", type: "10", value: 10},
-				{suit: "diamond", type: "jack", value: 10},
-				{suit: "diamond", type: "queen", value: 10},
-				{suit: "diamond", type: "king", value: 10},
-				{suit: "diamond", type: "ace", value: 11},
+				{suit: "diamonds", type: "2", value: 2},
+				{suit: "diamonds", type: "3", value: 3},
+				{suit: "diamonds", type: "4", value: 4},
+				{suit: "diamonds", type: "5", value: 5},
+				{suit: "diamonds", type: "6", value: 6},
+				{suit: "diamonds", type: "7", value: 7},
+				{suit: "diamonds", type: "8", value: 8},
+				{suit: "diamonds", type: "9", value: 9},
+				{suit: "diamonds", type: "10", value: 10},
+				{suit: "diamonds", type: "jack", value: 10},
+				{suit: "diamonds", type: "queen", value: 10},
+				{suit: "diamonds", type: "king", value: 10},
+				{suit: "diamonds", type: "ace", value: 11},
 						
-				{suit: "spade", type: "2", value: 2},
-				{suit: "spade", type: "3", value: 3},
-				{suit: "spade", type: "4", value: 4},
-				{suit: "spade", type: "5", value: 5},
-				{suit: "spade", type: "6", value: 6},
-				{suit: "spade", type: "7", value: 7},
-				{suit: "spade", type: "8", value: 8},
-				{suit: "spade", type: "9", value: 9},
-				{suit: "spade", type: "10", value: 10},
-				{suit: "spade", type: "jack", value: 10},
-				{suit: "spade", type: "queen", value: 10},
-				{suit: "spade", type: "king", value: 10},
-				{suit: "spade", type: "ace", value: 11},
+				{suit: "spades", type: "2", value: 2},
+				{suit: "spades", type: "3", value: 3},
+				{suit: "spades", type: "4", value: 4},
+				{suit: "spades", type: "5", value: 5},
+				{suit: "spades", type: "6", value: 6},
+				{suit: "spades", type: "7", value: 7},
+				{suit: "spades", type: "8", value: 8},
+				{suit: "spades", type: "9", value: 9},
+				{suit: "spades", type: "10", value: 10},
+				{suit: "spades", type: "jack", value: 10},
+				{suit: "spades", type: "queen", value: 10},
+				{suit: "spades", type: "king", value: 10},
+				{suit: "spades", type: "ace", value: 11},
 				
 				{suit: "clubs", type: "2", value: 2},
 				{suit: "clubs", type: "3", value: 3},
@@ -83,6 +92,15 @@ functions - draw(), discard(){switch player}, calculate(), callLastTurn(), shuff
 			];
 			return deck;
 		}
+		
+		//Player Object - the function that creates the players
+		function Player(pName){
+			this.name = pName;
+			this.cards= [];
+			this.lifes = 3;	
+		}
+		
+		
 		//loop to create the correct number of players, uses push to put on end of the array
 		function createPlayers(numOfPlayers){
 			var newPlayer;
@@ -91,17 +109,8 @@ functions - draw(), discard(){switch player}, calculate(), callLastTurn(), shuff
 				players.push(newPlayer);
 			}
 		}
-		//the function that creates the players
-		function Player(pName){
-			this.name = pName;
-			this.cards= [
-				{suit: "clubs", type: "jack", value: 10},
-				{suit: "diamonds", type: "queen", value: 10},
-				{suit: "clubs", type: "king", value: 10},
-						];
-			this.lifes = 3;	
-		}
 		
+<<<<<<< HEAD
 		//calculates the score
 		function calculatePoints(){
 			var cards = players[0].cards;
@@ -189,15 +198,8 @@ functions - draw(), discard(){switch player}, calculate(), callLastTurn(), shuff
 			//discardPile.shift(newCard);
 			/*discardPile.shift(gameDeck[newCard]);
 			delete gameDeck[newCard];*/
-		}
-		function moveToDiscard(){
-			/*var usedCard = gameDeck.pop(0);	
-			discardPile.shift(usedCard);*/
-			discardPile[0] = gameDeck[0];
-			
-			
-		}
-		
+=======
+		//shuffles cards
 		function shuffle(){
 			var tempArr=[];
 			var n = gameDeck.length;
@@ -208,16 +210,118 @@ functions - draw(), discard(){switch player}, calculate(), callLastTurn(), shuff
 			tempArr.push(gameDeck[0]);
 			gameDeck = tempArr;
 			
-			/*var text = "";
-			for(var i = 0; i < gameDeck.length; i++){
-				text += gameDeck[i].type + " of " + gameDeck[i].suit + ", ";
-			}
-			*/
-			display.innerHTML = JSON.stringify(gameDeck);
+			seeCards(gameDeck);
 		}
+		
+		
+		//draws the top 3 cards and inserts them into the players hand
+		function toPlayerHand(){
+			players[0].cards = [gameDeck.shift(0), gameDeck.shift(1), gameDeck.shift(2)];	
+			seeCards(players[0].cards);
+>>>>>>> origin/master
+		}
+		
+		//discards the first card in game deck to the top of the discard pile
+		function moveToDiscard(){
+			discarded = gameDeck.shift(0);	
+			discardPile.unshift(discarded);
+		}
+		
+		function drawThenDiscard(){
+			var drawnCard = gameDeck.shift(0)
+			players[0].cards.push(drawnCard);
+			var playerHandPre = returnCardsString(players[0].cards);
+			
+			var discardedCard =  players[0].cards.shift(0);
+			discardPile.unshift(discardedCard);
+			var playerHandPost = returnCardsString(players[0].cards);
+			
+			display.innerHTML = "Player 1 drew the " + drawnCard.type + " of " + drawnCard.suit + ". Then had a hand that 	looked like " + playerHandPre + " and discarded the " + discardedCard.type + " of " + discardedCard.suit + " and then had a hand that looked like " + playerHandPost + ". The Discard Pile looks like " + returnCardsString(discardPile);
+		}
+		
+		//calculates the score
+		function calculatePoints(){
+			var cards = players[0].cards;
+			var total = cards[0].value + cards[1].value + cards[2].value;
+			
+			var heartsTotal = 0;
+			var diamondsTotal = 0;
+			var clubsTotal = 0;
+			var spadesTotal = 0;
+			
+			//does loop to calculate the total of each suit from the hand
+			for (var i = 0; i < 3; i++){
+				if(cards[i].suit == "hearts"){
+					heartsTotal += cards[i].value;
+				} 
+				if (cards[i].suit == "diamonds"){
+					diamondsTotal += cards[i].value;
+				}
+				if (cards[i].suit == "clubs"){
+					clubsTotal += cards[i].value;
+				}
+				if (cards[i].suit == "spades"){
+					spadesTotal += cards[i].value;
+				}
+			}
+			var suitTotal = Math.max(heartsTotal, diamondsTotal, clubsTotal, spadesTotal);
+			
+			display.innerHTML = "total of all: " + total + ". the total for the highest per suit is " + suitTotal;
+		}
+		
+		
+		//displays the length of the deck
 		function showDeckLength(){
 			display.innerHTML = gameDeck.length;	
 		}
+		//shows the cards as "h2, s10, etc" and displays them in the display div
+		function seeCards(cards){
+			var textVersion= "";
+			for (var i =0; i < cards.length; i++){
+				textVersion += cards[i].suit.charAt(0) + cards[i].type;	
+				if(i < cards.length - 1){
+					textVersion += ", ";
+				}				
+			}
+			if(textVersion == ""){
+				textVersion = "empty";	
+			}
+			//this one displays it in the display div
+			display.innerHTML = textVersion;
+		}
+		//returns a string of the cards 
+		function returnCardsString(cards){
+			var textVersion= "";
+			for (var i =0; i < cards.length; i++){
+				textVersion += cards[i].suit.charAt(0) + cards[i].type;
+				if(i < cards.length - 1){
+					textVersion += ", ";
+				}
+			}
+			//this one returns the string to be used in the function in which it is called
+			return textVersion;
+		}
+		
+		//displays the player summary to the display div
+		function showAllPlayers(){
+			var playerSummary = "";
+			for(var i = 0; i < players.length; i++){
+				playerSummary += "Player" + (i+1) + ": " + players[i].name+ "hand: (" + returnCardsString(players[i].cards) + ") lives: " + players[i].lifes + "<br>";	
+			}
+			display.innerHTML = playerSummary;
+		}
+
+		//just a simple display function
+		function seeResults(item){
+			display.innerHTML=JSON.stringify(item);		
+		}
+		
+		
+		
+	/*//draws a random card. The deck is not shuffled, you are not grabbing the top card but rather a random one
+		function drawCard(){var newCardIndex = Math.floor(Math.random()*(gameDeck.length -1)+1); var newCard = gameDeck[newCardIndex]; display.innerHTML ="You have drawn the " + newCard.type + " of " + newCard.suit + ". It is worth " +	newCard.value;
+		}*/
+		
 	</script>
 </head>
 <body>
@@ -225,14 +329,18 @@ functions - draw(), discard(){switch player}, calculate(), callLastTurn(), shuff
 	<input type="text" id="name" value="Richard">
 	
 <div id="display"></div>
-	<button type="button" onclick="seeResults(gameDeck)">See the Deck</button>
-	<button type="button" onclick="seeResults(players)">See the players</button>
+	<button type="button" onclick="seeCards(gameDeck)">See the Deck</button>
+	<button type="button" onclick="showAllPlayers()"<!--"seeResults(players)"-->>See the players</button>
 	<button type="button" onclick="calculatePoints()">See Points</button>
-	<button type="button" onclick="drawCard()">Draw a card</button>
-	<button type="button" onclick="seeResults(discardPile)">See the Discard pile</button>
+	<button type="button" onclick="seeCards(discardPile)">See the Discard pile</button>
 	<button type="button" onclick="moveToDiscard()">Discard</button>
 	<button type="button" onclick="shuffle()">Shuffle</button>
 	<button type="button" onclick="showDeckLength()">Show Length</button>
+	<button type="button" onclick="toPlayerHand()">To Player Hand</button>
+	
+	<br> 
+	<button type="button" onclick="seeCards(gameDeck)">See The Game Deck</button>
+	<button type="button" onclick="drawThenDiscard()">Draw and discard</button>
 	
 </body>
 </html>
