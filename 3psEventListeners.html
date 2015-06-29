@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Event Listeners</title>
+	<link rel="stylesheet" type="text/css" href="3psCssForTesting.css">
+	<script type="text/javascript">
+		window.onload = function(){
+			document.getElementById('drawCard').addEventListener('click', "popUp('Deck')");	
+		};
+		function popUp(x){
+			alert(x);	
+		}
+	</script>
+</head>
+
+
+<body>
+	<div id="upperArea">
+		<div id="drawCard" class="card">Draw Pile</div>
+		<div id="discardCard" class="card">Discard Pile</div>
+	</div>
+	<div id="handArea">
+		<div id="card1" class="card"></div>
+		<div id="card2" class="card"></div>
+		<div id="card3" class="card"></div>
+		<div id="card4" class="card"></div>
+	</div>
+</body>
+
+</html>

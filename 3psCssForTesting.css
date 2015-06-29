@@ -1,0 +1,27 @@
+body {
+	background-color: green;
+}
+
+
+.card {
+	border: solid black 2px;
+	color:  black;
+	font-size: 20px;
+	font-weight: 600;
+	height: 100px;
+	width: 100px;
+	margin: 20px;
+	float: left;
+	text-align: center;
+	background-color: whitesmoke;
+}
+
+#displayDiv{
+	clear:left;
+	border: dashed black 2px;
+	padding: 5px;
+	margin: 5px 0;
+}
+#handArea{
+	clear: left;
+}
