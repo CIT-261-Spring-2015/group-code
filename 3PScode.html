@@ -9,10 +9,17 @@
 		
 		Need to get onclicks/event listeners to work
 		calculate points and show which suit, not just number
-		reshuffling is keeping an extra card?
+		reshuffling is keeping an extra card? THINK OK now
 		check to see if loser loses a life
 		
 		Start new round function ? does it matter who starts?
+		
+		
+		show the discard pile
+		special rules - 3 of aces = 34 (everyone else loses a life), 3 of a kind = 33
+		3 aces = on your turn game ends
+		
+		get rid of player when don't have lives left
 		*/
 		
 		//global variables needed for game
@@ -104,6 +111,7 @@
 			this.cards= [];
 			this.lifes = 3;	
 		}
+		
 				/*Functions to setup Game*/
 		
 		//NEED A START NEW ROUND B/C THIS WILL NOT SATISFY
@@ -166,8 +174,8 @@
 			//maybe putting this here will be better
 			if (GameDeck.length == 0){
 				GameDeck = 	DiscardPile;
-				//GameDeck.pop(0);
 				shuffle();
+				GameDeck.pop();
 			}	
 			displayCards();
 			points.innerHTML = calculatePoints(Players[currentPlayer].cards);
@@ -208,7 +216,8 @@
 					currentPlayer = 0;	
 				}
 				displayCards();
-
+				
+				//if has 3 aces, then call endRound()
 
 				//updates name of whose turn it is
 				currentPlayerNameBox.innerHTML = Players[currentPlayer].name;
@@ -225,6 +234,7 @@
 		}
 		
 		//put player's cards in divs
+		//this will change
 		function displayCards(){
 			var card = Players[currentPlayer].cards;
 			var n = card.length;
