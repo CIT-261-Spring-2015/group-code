@@ -123,7 +123,7 @@
 			displayCards();
 			
 			currentPlayerNameBox.innerHTML = Players[currentPlayer].name;
-			points.innerHTML = calculatePoints(Players[currentPlayer].cards);
+			points.innerHTML = calculatePoints(Players[currentPlayer].cards).points + " " + calculatePoints(Players[currentPlayer].cards).suit;
 			
 			
 			displayAll();
@@ -178,7 +178,7 @@
 				GameDeck.pop();
 			}	
 			displayCards();
-			points.innerHTML = calculatePoints(Players[currentPlayer].cards);
+			points.innerHTML = calculatePoints(Players[currentPlayer].cards).points + " " + calculatePoints(Players[currentPlayer].cards).suit;
 			//addEventListenersToDiscard();
 			
 			displayAll();
@@ -221,7 +221,7 @@
 
 				//updates name of whose turn it is
 				currentPlayerNameBox.innerHTML = Players[currentPlayer].name;
-				points.innerHTML = calculatePoints(Players[currentPlayer].cards);
+				points.innerHTML = calculatePoints(Players[currentPlayer].cards).points + " " + calculatePoints(Players[currentPlayer].cards).suit;
 				
 				
 			} else {
@@ -260,14 +260,14 @@
 		function endRound(){
 			//sets the first player as the default loser and then checks the other players to see if they had a lower total
 			var loser = Players[0];
-			var scoreBoard = loser.name + " had " + calculatePoints(loser.cards) + " Points. <br>";
+			var scoreBoard = loser.name + " had " + calculatePoints(loser.cards).points + " Points. <br>";
 			
 			for(var i = 1; i < Players.length; i++){
-				if (calculatePoints(Players[i].cards) < calculatePoints(loser.cards)){
+				if (calculatePoints(Players[i].cards).points < calculatePoints(loser.cards).points){
 					loser = Players[i];	
 				}
 				
-				scoreBoard += Players[i].name + " had " + calculatePoints(Players[i].cards) + " Points. <br>";
+				scoreBoard += Players[i].name + " had " + calculatePoints(Players[i].cards).points + " Points. <br>";
 			}
 			loser.lifes--;
 			display.innerHTML = loser.name + " lost. Below is a summary: <br> " + scoreBoard;
@@ -276,30 +276,45 @@
 		
 		//calculates the points and returns the highest per each suit
 		function calculatePoints(cards){
-			var suitTotal = 0;
-			var heartsTotal = {points:0, suit:"hearts"};
-			var diamondsTotal = {points:0, suit:"diamonds"};
-			var clubsTotal = {points:0, suit:"clubs"};
-			var spadesTotal = {points:0, suit:"spades"};
+			var suitTotal = {points: 0, suit:""};
+			
+			var heartsTotal = 0;
+			var diamondsTotal = 0;
+			var clubsTotal = 0;
+			var spadesTotal = 0;
+			
+			//if all cards are aces
+			
+			//if 3 cards are same type
 
 			//does loop to calculate the total of each suit from the hand
 			for (var i = 0; i < cards.length ; i++){
 				switch (cards[i].suit){
 					case "hearts":
-						heartsTotal.points += cards[i].value;
+						heartsTotal += cards[i].value;
 						break;
 					case "diamonds":
-						diamondsTotal.points += cards[i].value;
+						diamondsTotal += cards[i].value;
 						break;
 					case "clubs":
-						clubsTotal.points += cards[i].value;
+						clubsTotal += cards[i].value;
 						break;
 					case "spades":
-						spadesTotal.points += cards[i].value;
+						spadesTotal += cards[i].value;
 						break;
 				}
 			}
-			suitTotal = Math.max(heartsTotal.points, diamondsTotal.points, clubsTotal.points, spadesTotal.points);
+			suitTotal.points = Math.max(heartsTotal, diamondsTotal, clubsTotal, spadesTotal);
+			
+			if (suitTotal.points == heartsTotal){
+				suitTotal.suit = "hearts";
+			} else if (suitTotal.points == diamondsTotal){
+				suitTotal.suit = "diamonds";	
+			} else if(suitTotal.points == clubsTotal){
+				suitTotal.suit = "clubs";	
+			} else if (suitTotal.points == spadesTotal){
+				suitTotal.suit = "spades";	
+			}	
 			
 			return suitTotal;
 		}
@@ -359,7 +374,7 @@
 			var playerSummary = "";
 			for(var i = 0; i < Players.length; i++){
 				Players[i].totalPoints;
-				playerSummary += "Player" + (i+1) + ": " + Players[i].name+ ". hand: (" + returnCardsString(Players[i].cards) + "). lives: " + Players[i].lifes + ". Points: " + calculatePoints(Players[i].cards) + "<br>";	
+				playerSummary += "Player" + (i+1) + ": " + Players[i].name+ ". hand: (" + returnCardsString(Players[i].cards) + "). lives: " + Players[i].lifes + ". Points: " + calculatePoints(Players[i].cards).points + "<br>";	
 			}
 			display.innerHTML = playerSummary;
 		}
