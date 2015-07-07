@@ -114,7 +114,6 @@
 		
 				/*Functions to setup Game*/
 		
-		//NEED A START NEW ROUND B/C THIS WILL NOT SATISFY
 		function startNewGame(){
 			numberOfPlayers = playerCountBox.value;
 			createPlayers(numberOfPlayers);
@@ -271,54 +270,62 @@
 			}
 			loser.lifes--;
 			display.innerHTML = loser.name + " lost. Below is a summary: <br> " + scoreBoard;
+			if(loser.lifes == 0){
+				//need to remove player if no lives left
+				var indexOfPlayer = Players.indexOf(loser);
+				Players.splice(indexOfPlayer, 1);				
+				numberOfPlayers = Players.length;
+			}
 			
+		}
+		
+		function startNewRound(){
+			clearCards();
+			
+			GameDeck = new Deck();
+			DiscardPile = [];
+			
+			shuffle();
+			deal(numberOfPlayers);	
+			displayCards();
+			
+			currentPlayerNameBox.innerHTML = Players[currentPlayer].name;
+			points.innerHTML = calculatePoints(Players[currentPlayer].cards).points + " " + calculatePoints(Players[currentPlayer].cards).suit;
+			
+			
+			displayAll();
+			
+		}
+		function clearCards(){
+			for(var i = 0; i < Players.length; i++){
+				Players[i].cards = [];	
+			}
+				
 		}
 		
 		//calculates the points and returns the highest per each suit
 		function calculatePoints(cards){
-			var suitTotal = {points: 0, suit:""};
 			
-			var heartsTotal = 0;
-			var diamondsTotal = 0;
-			var clubsTotal = 0;
-			var spadesTotal = 0;
 			
-			//if all cards are aces
-			
-			//if 3 cards are same type
-
-			//does loop to calculate the total of each suit from the hand
-			for (var i = 0; i < cards.length ; i++){
-				switch (cards[i].suit){
-					case "hearts":
-						heartsTotal += cards[i].value;
-						break;
-					case "diamonds":
-						diamondsTotal += cards[i].value;
-						break;
-					case "clubs":
-						clubsTotal += cards[i].value;
-						break;
-					case "spades":
-						spadesTotal += cards[i].value;
-						break;
-				}
+			var handDict = {'spades':0,
+							'hearts':0,
+							'diamonds':0,
+							'clubs':0,
+							'highestSuit':"",
+						   	'highestNumber':0};
+			for(var i = 0; i < cards.length; i++){
+				var curSuit = cards[i].suit;
+				handDict[curSuit] = handDict[curSuit] + cards[i].value;
+				if(handDict['highestNumber'] < handDict[curSuit]){
+					handDict['highestSuit'] = curSuit;	
+					handDict['highestNumber'] = handDict[curSuit];
+				}	
 			}
-			suitTotal.points = Math.max(heartsTotal, diamondsTotal, clubsTotal, spadesTotal);
+			var pointsAndSuit = {'points': handDict['highestNumber'], 'suit': handDict['highestSuit']};
 			
-			if (suitTotal.points == heartsTotal){
-				suitTotal.suit = "hearts";
-			} else if (suitTotal.points == diamondsTotal){
-				suitTotal.suit = "diamonds";	
-			} else if(suitTotal.points == clubsTotal){
-				suitTotal.suit = "clubs";	
-			} else if (suitTotal.points == spadesTotal){
-				suitTotal.suit = "spades";	
-			}	
-			
-			return suitTotal;
+			return pointsAndSuit;
 		}
-		
+
 /*		//not working yet, adding event listeners
 		function addEventListenersToDraw(){
 			document.getElementById('drawCard').onclick = draw(GameDeck[0]);
@@ -420,6 +427,7 @@
 		<button type="button" onclick="discard(Players[currentPlayer].cards.pop(0))">Discard</button>
 		<button type="button" onclick="lastTurn()">Last Turn</button>
 		<button type="button" onclick="endRound()">End Round</button>
+		<button type="button" onclick="startNewRound()">New Round</button>
 	</div>
 	
 	<div id="checkButtons">

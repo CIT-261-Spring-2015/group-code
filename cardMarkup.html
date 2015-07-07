@@ -111,95 +111,56 @@ functions - draw(), discard(){switch player}, calculate(), callLastTurn(), shuff
 			}
 		}
 		
-<<<<<<< HEAD
-		//calculates the score
-		function calculatePoints(){
-			var cards = players[0].cards;
-			var total = cards[0].value + cards[1].value + cards[2].value;
-			
-			var suit1 = cards[0].suit;
-			var suit2 = cards[1].suit;
-			var suit3 = cards[2].suit;
-            
-           if (cards[0].value >= cards[1].value + cards[2].value) {
-       display.innerHTML = cards[0].value;
-   }
-   //if card [0] was greater than either card
-   else if (cards[0].value >= cards[1].value && cards[2].value) {
+				//calculates the score
+				function calculatePoints(){
+					var cards = players[0].cards;
+					var total = cards[0].value + cards[1].value + cards[2].value;
 
+					var suit1 = cards[0].suit;
+					var suit2 = cards[1].suit;
+					var suit3 = cards[2].suit;
 
-       display.innerHTML = cards[0].value;
-   }
-   // if card [1] is greater than any other two cards combined
-   else if (cards[1].value >= cards[0].value + cards[2].value) {
-
-       display.innerHTML = cards[1].value;
-   }
-
-   //if card [1] was greater than either card
-   else if (cards[1].value >= cards[0].value && cards[2].value) {
-
-
-       display.innerHTML = cards[1].value;
-
-   }
-
-
-   // if card [2] is greater than any other two cards combined
-   else if (cards[2].value >= cards[0].value + cards[1].value) {
-
-       display.innerHTML = cards[2].value;
-   }
-
-   //if card [2] was greater than either card
-   else if (cards[2].value >= cards[0].value && cards[1].value) {
-
-
-       display.innerHTML = cards[2].value;
-
-   }
-
-
-   // if card [0 and 1] are greater than card 2
-   else if (cards[0].value + cards[1].value >= cards[2].value) {
-
-       display.innerHTML = cards[0].value + cards[1].value;
-   }
-
-
-
-
-   // if card [0 and 2] are greater than card 1
-   if (cards[0].value + cards[2].value >= cards[1].value) {
-
-       display.innerHTML = cards[0].value + cards[2].value;
-   }
-
-
-   // if card [1 and 2] are greater than card 0
-   else if (cards[1].value + cards[2].value >= cards[0].value) {
-
-       display.innerHTML = cards[1].value + cards[2].value;
-   }
-   /// all cards must be of the same suit therefor add all 3 together
-   else {
-       display.innerHTML = "total of all: " + total;
-   }
-   }
-		//just a simple display function
-		function seeResults(item){
-			display.innerHTML=JSON.stringify(item);		
-		}
-		//draws a random card. The deck is not shuffled, you are not grabbing the top card but rather a random one
-		function drawCard(){
-			var newCardIndex = Math.floor(Math.random()*(gameDeck.length -1)+1);	
-			var newCard = gameDeck[newCardIndex];
-			display.innerHTML ="You have drawn the " + newCard.type + " of " + newCard.suit + ". It is worth " + newCard.value;
-			
-			//discardPile.shift(newCard);
-			/*discardPile.shift(gameDeck[newCard]);
-			delete gameDeck[newCard];*/
-=======
+				if (cards[0].value >= cards[1].value + cards[2].value) {
+					display.innerHTML = cards[0].value;
+				}
+			   //if card [0] was greater than either card
+			   else if (cards[0].value >= cards[1].value && cards[2].value) {
+				   display.innerHTML = cards[0].value;
+			   }
+			   // if card [1] is greater than any other two cards combined
+			   else if (cards[1].value >= cards[0].value + cards[2].value) {
+				   display.innerHTML = cards[1].value;
+			   }
+			   //if card [1] was greater than either card
+			   else if (cards[1].value >= cards[0].value && cards[2].value) {
+				   display.innerHTML = cards[1].value;
+			   }
+			   // if card [2] is greater than any other two cards combined
+			   else if (cards[2].value >= cards[0].value + cards[1].value) {
+				   display.innerHTML = cards[2].value;
+			   }
+			   //if card [2] was greater than either card
+			   else if (cards[2].value >= cards[0].value && cards[1].value) {
+				   display.innerHTML = cards[2].value;
+			   }
+			   // if card [0 and 1] are greater than card 2
+			   else if (cards[0].value + cards[1].value >= cards[2].value) {
+				   display.innerHTML = cards[0].value + cards[1].value;
+			   }
+			   // if card [0 and 2] are greater than card 1
+			   if (cards[0].value + cards[2].value >= cards[1].value) {
+				   display.innerHTML = cards[0].value + cards[2].value;
+			   }
+			   // if card [1 and 2] are greater than card 0
+			   else if (cards[1].value + cards[2].value >= cards[0].value) {
+				   display.innerHTML = cards[1].value + cards[2].value;
+			   }
+			   /// all cards must be of the same suit therefor add all 3 together
+			   else {
+				   display.innerHTML = "total of all: " + total;
+			   		}
+		   		}
+		
 		//shuffles cards
 		function shuffle(){
 			var tempArr=[];
@@ -219,7 +180,7 @@ functions - draw(), discard(){switch player}, calculate(), callLastTurn(), shuff
 		function toPlayerHand(){
 			players[0].cards = [gameDeck.shift(0), gameDeck.shift(1), gameDeck.shift(2)];	
 			seeCards(players[0].cards);
->>>>>>> origin/master
+
 		}
 		
 		//discards the first card in game deck to the top of the discard pile
@@ -245,29 +206,31 @@ functions - draw(), discard(){switch player}, calculate(), callLastTurn(), shuff
 			var cards = players[0].cards;
 			var total = cards[0].value + cards[1].value + cards[2].value;
 			
-			var heartsTotal = 0;
-			var diamondsTotal = 0;
-			var clubsTotal = 0;
-			var spadesTotal = 0;
+			var heartsTotal = {points:0, suit:"hearts"};
+			var diamondsTotal = {points:0, suit:"diamonds"};
+			var clubsTotal = {points:0, suit:"clubs"};
+			var spadesTotal = {points:0, suit:"spades"};
 			
 			//does loop to calculate the total of each suit from the hand
 			for (var i = 0; i < 3; i++){
-				if(cards[i].suit == "hearts"){
-					heartsTotal += cards[i].value;
-				} 
-				if (cards[i].suit == "diamonds"){
-					diamondsTotal += cards[i].value;
-				}
-				if (cards[i].suit == "clubs"){
-					clubsTotal += cards[i].value;
-				}
-				if (cards[i].suit == "spades"){
-					spadesTotal += cards[i].value;
+				switch (cards[i].suit){
+					case "hearts":
+						heartsTotal.points += cards[i].value;
+						break;
+					case "diamonds":
+						diamondsTotal.points += cards[i].value;
+						break;
+					case "clubs":
+						clubsTotal.points += cards[i].value;
+						break;
+					case "spades":
+						spadesTotal.points += cards[i].value;
+						break;
 				}
 			}
-			var suitTotal = Math.max(heartsTotal, diamondsTotal, clubsTotal, spadesTotal);
+			var suitTotal = Math.max(heartsTotal.points, diamondsTotal.points, clubsTotal.points, spadesTotal.points);
 			
-			display.innerHTML = "total of all: " + total + ". the total for the highest per suit is " + suitTotal;
+			display.innerHTML = "total of all: " + total + ". the total for the highest per suit is " + suitTotal + " in the " + /*highSuit +*/ " suit";
 		}
 		
 		
