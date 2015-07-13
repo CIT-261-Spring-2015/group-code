@@ -3,7 +3,7 @@
   width: 300px;
   height: 150px;
   transition: all 0.2s;
-  perspective: 900px;
+  perspective: 900;
 }
 
 .front, .back {
@@ -14,8 +14,8 @@
   height: 300px;
   text-align: left;
   backface-visibility: hidden;
-  transform-style: preserve3d;
-  transition: all 0.4s;
+  transform-style: preserve-3d;
+  transition: all .85s ease;
 }
 
 
@@ -25,8 +25,21 @@
 
 .flipped .back {
   transform: rotateY(0deg);
+  top:300px;
 }
 
 .flipped .front {
   transform: rotateY(180deg);
+  top:300px;
+}
+
+.discard .back {
+    
+   top: 0px;
+   margin-left: 250px;
+}
+
+.discard .front{
+    top: 0px;
+    margin-left: 250px;
 }
