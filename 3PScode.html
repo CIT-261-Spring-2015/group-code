@@ -6,20 +6,9 @@
 	<link rel="stylesheet" type="text/css" href="3psCssForTesting.css">
 	<script type="text/javascript">
 		/* TO DO: 
-		
 		Need to get onclicks/event listeners to work
-		calculate points and show which suit, not just number
-		reshuffling is keeping an extra card? THINK OK now
-		check to see if loser loses a life
-		
-		Start new round function ? does it matter who starts?
-		
-		
-		show the discard pile
 		special rules - 3 of aces = 34 (everyone else loses a life), 3 of a kind = 33
 		3 aces = on your turn game ends
-		
-		get rid of player when don't have lives left
 		*/
 		
 		//global variables needed for game
@@ -29,18 +18,17 @@
 		//initializing
 		window.onload = function(){
 			display = document.getElementById('displayDiv');
-			
 			playerCountBox = document.getElementById('numberOfPlayersInput');
-			
 			currentPlayerNameBox = document.getElementById('currentPlayerName');
 			points = document.getElementById('currentPoints');
 			
+			//initializing objects
 			GameDeck = new Deck();
 			DiscardPile = [];
 			Players = [];
-			currentPlayer = 0;
 			
-			
+			//counter used in program
+			currentPlayer = 0;			
 		}
 				/*Objects*/
 		//Deck Object - using literals
@@ -109,7 +97,11 @@
 		function GamePlayer(pName){
 			this.name = pName;
 			this.cards= [];
-			this.lifes = 3;	
+			this.lifes = 3;
+			//points if
+			if (this.cards.length !=0){
+				this.points = calculatePoints(this.cards);
+			}
 		}
 		
 				/*Functions to setup Game*/
@@ -123,9 +115,7 @@
 			
 			currentPlayerNameBox.innerHTML = Players[currentPlayer].name;
 			points.innerHTML = calculatePoints(Players[currentPlayer].cards).points + " " + calculatePoints(Players[currentPlayer].cards).suit;
-			
-			
-			displayAll();
+			/*displayAll();*/
 		}
 		
 		//loop to create the correct number of players, uses push to put on end of the array
@@ -136,6 +126,7 @@
 			var playerNames = ["Dan(1)", "Robert(2)", "Richard(3)", "Lee(4)"];
 			for(var i = 0; i<= numOfPlayers-1; i++){
 				NewPlayer = new GamePlayer(playerNames[i]);
+				//.push adds the new player to the end of the Players array of objects
 				Players.push(NewPlayer);
 			}
 		}
@@ -155,9 +146,13 @@
 		
 		function deal(NumOfPlayers){
 			for(var i = 0; i < numberOfPlayers; i++){
+				//.shift takes front the front of the array and shifts everything forward
 				Players[i].cards = [GameDeck.shift(0), GameDeck.shift(1), GameDeck.shift(2)];
 			}
+			
 			var firstDiscarded = GameDeck.shift(0);
+			
+			//.unshift adds to the front
 			DiscardPile.unshift(firstDiscarded);
 			
 			//displays the top discard card face up
@@ -170,36 +165,35 @@
 		//need to be able to select which card
 		function draw(cardToDraw){
 			Players[currentPlayer].cards.push(cardToDraw);
-			//maybe putting this here will be better
+			
+			//reshuffles when the last card is drawn
 			if (GameDeck.length == 0){
 				GameDeck = 	DiscardPile;
 				shuffle();
 				GameDeck.pop();
 			}	
 			displayCards();
+			
 			points.innerHTML = calculatePoints(Players[currentPlayer].cards).points + " " + calculatePoints(Players[currentPlayer].cards).suit;
 			//addEventListenersToDiscard();
-			
-			displayAll();
-			
 		}
 		
 		function discard(cardToDiscard){
 			DiscardPile.unshift(cardToDiscard);
-			//PROBLEM - discard pile is getting moved over to 
-			if (GameDeck.length == 0){
+			
+			/*if (GameDeck.length == 0){
 				var lastDiscardCard = DiscardPile.shift(0);
 				GameDeck = 	DiscardPile;
 				shuffle();
 				DiscardPile.unshift(lastDiscardCard);
-			}
+			}*/
 			document.getElementById('discardCard').innerHTML = DiscardPile[0].suit + " " + DiscardPile[0].type;
 			displayCards();
 			switchPlayer();
 			
-			if (lastTurn!=0){
+			/*if (lastTurn!=0){
 				displayAll();
-			}
+			}*/
 		}
 
 		//switches players
@@ -293,7 +287,7 @@
 			points.innerHTML = calculatePoints(Players[currentPlayer].cards).points + " " + calculatePoints(Players[currentPlayer].cards).suit;
 			
 			
-			displayAll();
+			/*displayAll();*/
 			
 		}
 		function clearCards(){
@@ -305,8 +299,6 @@
 		
 		//calculates the points and returns the highest per each suit
 		function calculatePoints(cards){
-			
-			
 			var handDict = {'spades':0,
 							'hearts':0,
 							'diamonds':0,
@@ -339,6 +331,18 @@
 			document.getElementById('card4').onclick = discard(Players[currentPlayer].cards[3]);
 			
 		}*/
+		
+		function saveGame(){
+			localStorage.setItem('Players', JSON.stringify(Players));
+			localStorage.setItem('Deck', JSON.stringify(GameDeck));
+			localStorage.setItem('Discard', JSON.stringify(DiscardPile));
+		}
+		function loadGame(){
+			Players = JSON.parse(localStorage.getItem('Players'));
+			Deck = JSON.parse(localStorage.getItem('Deck'));
+			DiscardPile = JSON.parse(localStorage.getItem('Discard'))
+		}
+		
 		
 				/*functions for convience*/
 		
