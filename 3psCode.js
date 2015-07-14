@@ -300,7 +300,7 @@ function GamePlayer(pName) {
 
 function startNewGame() {
 	numberOfPlayers = playerCountBox.value;
-	createPlayers(numberOfPlayers);
+	createPlayers(/*numberOfPlayers*/4);
 	shuffle();
 	deal(numberOfPlayers);
 	displayCards();
