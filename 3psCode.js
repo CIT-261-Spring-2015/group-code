@@ -7,7 +7,10 @@ window.onload = function () {
 	
 		//NEED TO CHANGE THIS STUFF
 		display = document.getElementById('displayDiv');
+		//doesn't exist in html, made work around
 		playerCountBox = document.getElementById('numberOfPlayersInput');
+	
+		//used as a span
 		currentPlayerNameBox = document.getElementById('currentPlayerName');
 		points = document.getElementById('currentPoints');
 
@@ -25,265 +28,317 @@ function Deck() {
 		{
 			suit: "hearts",
 			type: "2",
-			value: 2
+			value: 2,
+			path: "assets/cards/cards_h2.png"
 		},
 		{
 			suit: "hearts",
 			type: "3",
-			value: 3
+			value: 3,
+			path: "assets/cards/cards_h3.png"
 		},
 		{
 			suit: "hearts",
 			type: "4",
-			value: 4
+			value: 4,
+			path: "assets/cards/cards_h4.png"
 		},
 		{
 			suit: "hearts",
 			type: "5",
-			value: 5
+			value: 5,
+			path: "assets/cards/cards_h5.png"
 		},
 		{
 			suit: "hearts",
 			type: "6",
-			value: 6
+			value: 6,
+			path: "assets/cards/cards_h6.png"
 		},
 		{
 			suit: "hearts",
 			type: "7",
-			value: 7
+			value: 7,
+			path: "assets/cards/cards_h7.png"
 		},
 		{
 			suit: "hearts",
 			type: "8",
-			value: 8
+			value: 8,
+			path: "assets/cards/cards_h8.png"
 		},
 		{
 			suit: "hearts",
 			type: "9",
-			value: 9
+			value: 9,
+			path: "assets/cards/cards_h9.png"
 		},
 		{
 			suit: "hearts",
 			type: "10",
-			value: 10
+			value: 10,
+			path: "assets/cards/cards_h10.png"
 		},
 		{
 			suit: "hearts",
 			type: "jack",
-			value: 10
+			value: 10,
+			path: "assets/cards/cards_hj.png"
 		},
 		{
 			suit: "hearts",
 			type: "queen",
-			value: 10
+			value: 10,
+			path: "assets/cards/cards_hq.png"
 		},
 		{
 			suit: "hearts",
 			type: "king",
-			value: 10
+			value: 10,
+			path: "assets/cards/cards_hk.png"
 		},
 		{
 			suit: "hearts",
 			type: "ace",
-			value: 11
+			value: 11,
+			path: "assets/cards/cards_ha.png"
 		},
 
 		{
 			suit: "diamonds",
 			type: "2",
-			value: 2
+			value: 2,
+			path: "assets/cards/cards_d2.png"
 		},
 		{
 			suit: "diamonds",
 			type: "3",
-			value: 3
+			value: 3,
+			path: "assets/cards/cards_d3.png"
 		},
 		{
 			suit: "diamonds",
 			type: "4",
-			value: 4
+			value: 4,
+			path: "assets/cards/cards_d4.png"
 		},
 		{
 			suit: "diamonds",
 			type: "5",
-			value: 5
+			value: 5,
+			path: "assets/cards/cards_d5.png"
 		},
 		{
 			suit: "diamonds",
 			type: "6",
-			value: 6
+			value: 6,
+			path: "assets/cards/cards_d6.png"
 		},
 		{
 			suit: "diamonds",
 			type: "7",
-			value: 7
+			value: 7,
+			path: "assets/cards/cards_d7.png"
 		},
 		{
 			suit: "diamonds",
 			type: "8",
-			value: 8
+			value: 8,
+			path: "assets/cards/cards_d8.png"
 		},
 		{
 			suit: "diamonds",
 			type: "9",
-			value: 9
+			value: 9,
+			path: "assets/cards/cards_d9.png"
 		},
 		{
 			suit: "diamonds",
 			type: "10",
-			value: 10
+			value: 10,
+			path: "assets/cards/cards_d10.png"
 		},
 		{
 			suit: "diamonds",
 			type: "jack",
-			value: 10
+			value: 10,
+			path: "assets/cards/cards_dj.png"
 		},
 		{
 			suit: "diamonds",
 			type: "queen",
-			value: 10
+			value: 10,
+			path: "assets/cards/cards_dq.png"
 		},
 		{
 			suit: "diamonds",
 			type: "king",
-			value: 10
+			value: 10,
+			path: "assets/cards/cards_dk.png"
 		},
 		{
 			suit: "diamonds",
 			type: "ace",
-			value: 11
+			value: 11,
+			path: "assets/cards/cards_da.png"
 		},
 
 		{
 			suit: "spades",
 			type: "2",
-			value: 2
+			value: 2,
+			path: "assets/cards/cards_s2.png"
 		},
 		{
 			suit: "spades",
 			type: "3",
-			value: 3
+			value: 3,
+			path: "assets/cards/cards_s3.png"
 		},
 		{
 			suit: "spades",
 			type: "4",
-			value: 4
+			value: 4,
+			path: "assets/cards/cards_s4.png"
 		},
 		{
 			suit: "spades",
 			type: "5",
-			value: 5
+			value: 5,
+			path: "assets/cards/cards_s5.png"
 		},
 		{
 			suit: "spades",
 			type: "6",
-			value: 6
+			value: 6,
+			path: "assets/cards/cards_s6.png"
 		},
 		{
 			suit: "spades",
 			type: "7",
-			value: 7
+			value: 7,
+			path: "assets/cards/cards_s7.png"
 		},
 		{
 			suit: "spades",
 			type: "8",
-			value: 8
+			value: 8,
+			path: "assets/cards/cards_s8.png"
 		},
 		{
 			suit: "spades",
 			type: "9",
-			value: 9
+			value: 9,
+			path: "assets/cards/cards_s9.png"
 		},
 		{
 			suit: "spades",
 			type: "10",
-			value: 10
+			value: 10,
+			path: "assets/cards/cards_s10.png"
 		},
 		{
 			suit: "spades",
 			type: "jack",
-			value: 10
+			value: 10,
+			path: "assets/cards/cards_sj.png"
 		},
 		{
 			suit: "spades",
 			type: "queen",
-			value: 10
+			value: 10,
+			path: "assets/cards/cards_sq.png"
 		},
 		{
 			suit: "spades",
 			type: "king",
-			value: 10
+			value: 10,
+			path: "assets/cards/cards_sk.png"
 		},
 		{
 			suit: "spades",
 			type: "ace",
-			value: 11
+			value: 11,
+			path: "assets/cards/cards_sa.png"
 		},
 
 		{
 			suit: "clubs",
 			type: "2",
-			value: 2
+			value: 2,
+			path: "assets/cards/cards_c2.png"
 		},
 		{
 			suit: "clubs",
 			type: "3",
-			value: 3
+			value: 3,
+			path: "assets/cards/cards_c3.png"
 		},
 		{
 			suit: "clubs",
 			type: "4",
-			value: 4
+			value: 4,
+			path: "assets/cards/cards_c4.png"
 		},
 		{
 			suit: "clubs",
 			type: "5",
-			value: 5
+			value: 5,
+			path: "assets/cards/cards_c5.png"
 		},
 		{
 			suit: "clubs",
 			type: "6",
-			value: 6
+			value: 6,
+			path: "assets/cards/cards_c6.png"
 		},
 		{
 			suit: "clubs",
 			type: "7",
-			value: 7
+			value: 7,
+			path: "assets/cards/cards_c7.png"
 		},
 		{
 			suit: "clubs",
 			type: "8",
-			value: 8
+			value: 8,
+			path: "assets/cards/cards_c8.png"
 		},
 		{
 			suit: "clubs",
 			type: "9",
-			value: 9
+			value: 9,
+			path: "assets/cards/cards_c9.png"
 		},
 		{
 			suit: "clubs",
 			type: "10",
-			value: 10
+			value: 10,
+			path: "assets/cards/cards_c10.png"
 		},
 		{
 			suit: "clubs",
 			type: "jack",
-			value: 10
+			value: 10,
+			path: "assets/cards/cards_cj.png"
 		},
 		{
 			suit: "clubs",
 			type: "queen",
-			value: 10
+			value: 10,
+			path: "assets/cards/cards_cq.png"
 		},
 		{
 			suit: "clubs",
 			type: "king",
-			value: 10
+			value: 10,
+			path: "assets/cards/cards_ck.png"
 		},
 		{
 			suit: "clubs",
 			type: "ace",
-			value: 11
+			value: 11,
+			path: "assets/cards/cards_ca.png"
 		},
 			];
 	return TheDeck;
@@ -299,18 +354,15 @@ function GamePlayer(pName) {
 /*Functions to setup Game*/
 
 function startNewGame() {
-	numberOfPlayers = playerCountBox.value;
-	createPlayers(/*numberOfPlayers*/4);
+	numberOfPlayers = 4/*playerCountBox.value*/;
+	createPlayers(numberOfPlayers);
 	shuffle();
 	deal(numberOfPlayers);
 	displayCards();
 
-	//NEED TO CHANGE THIS
+	
 	currentPlayerNameBox.innerHTML = Players[currentPlayer].name;
 	points.innerHTML = calculatePoints(Players[currentPlayer].cards).points + " " + calculatePoints(Players[currentPlayer].cards).suit;
-
-	//WON'T BE NEEDED
-	displayAll();
 }
 
 //loop to create the correct number of players, uses push to put on end of the array
@@ -318,7 +370,7 @@ function createPlayers(numOfPlayers) {
 	//gets rid of any players from a previous game
 	Players = [];
 	var NewPlayer;
-	var playerNames = ["Dan(1)", "Robert(2)", "Richard(3)", "Lee(4)"];
+	var playerNames = ["Sean Connery", "Lee Barney", "The Most Interesting Man", "Morgan Freeman"];
 	for (var i = 0; i <= numOfPlayers - 1; i++) {
 		NewPlayer = new GamePlayer(playerNames[i]);
 		Players.push(NewPlayer);
@@ -345,9 +397,8 @@ function deal(NumOfPlayers) {
 	var firstDiscarded = GameDeck.shift(0);
 	DiscardPile.unshift(firstDiscarded);
 	
-	//NEED TO CHANGE THIS
-	//displays the top discard card face up
-	document.getElementById('discardCard').innerHTML = DiscardPile[0].suit + " " + DiscardPile[0].type;
+	//think is ok
+	document.getElementById('discard').src = DiscardPile[0].path;
 	//addEventListenersToDraw();
 
 
@@ -356,7 +407,7 @@ function deal(NumOfPlayers) {
 //need to be able to select which card
 function draw(cardToDraw) {
 	Players[currentPlayer].cards.push(cardToDraw);
-	//maybe putting this here will be better
+	
 	if (GameDeck.length == 0) {
 		GameDeck = DiscardPile;
 		shuffle();
@@ -364,11 +415,11 @@ function draw(cardToDraw) {
 	}
 	displayCards();
 	
-	//NEED TO CHANGE THIS
+	
 	points.innerHTML = calculatePoints(Players[currentPlayer].cards).points + " " + calculatePoints(Players[currentPlayer].cards).suit;
 	//addEventListenersToDiscard();
 
-	displayAll();
+	
 
 }
 
@@ -380,13 +431,10 @@ function discard(cardToDiscard) {
 		shuffle();
 		DiscardPile.unshift(lastDiscardCard);
 	}
-	document.getElementById('discardCard').innerHTML = DiscardPile[0].suit + " " + DiscardPile[0].type;
+	document.getElementById('discard').scr = DiscardPile[0].path;
 	displayCards();
 	switchPlayer();
-//PROBABLY WON'T BE NEEDED
-	if (lastTurn != 0) {
-		displayAll();
-	}
+
 }
 
 //switches players
@@ -406,7 +454,6 @@ function switchPlayer() {
 		//if has 3 aces, then call endRound()
 
 		//updates name of whose turn it is
-		//NEED TO CHANGE THIS
 		currentPlayerNameBox.innerHTML = Players[currentPlayer].name;
 		points.innerHTML = calculatePoints(Players[currentPlayer].cards).points + " " + calculatePoints(Players[currentPlayer].cards).suit;
 
@@ -422,16 +469,15 @@ function switchPlayer() {
 }
 
 //put player's cards in divs
-//DEFINITELY NEEDS TO BE CHANGED
 function displayCards() {
 	var card = Players[currentPlayer].cards;
 	var n = card.length;
 
 	for (var i = 0; i < 4; i++) {
 		if (card[i] == undefined) {
-			document.getElementById('card' + (i + 1)).innerHTML = "";
+			document.getElementById('card' + (i + 1)).src = "";
 		} else {
-			document.getElementById('card' + (i + 1)).innerHTML = card[i].suit + " " + card[i].type;
+			document.getElementById('card' + (i + 1)).src = card[i].path;
 		}
 	}
 
@@ -482,8 +528,7 @@ function startNewRound() {
 	currentPlayerNameBox.innerHTML = Players[currentPlayer].name;
 	points.innerHTML = calculatePoints(Players[currentPlayer].cards).points + " " + calculatePoints(Players[currentPlayer].cards).suit;
 
-	//PROBABLY NOT NEEDED
-	displayAll();
+
 
 }
 
