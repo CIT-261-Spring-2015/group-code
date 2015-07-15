@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>XMLHttpRequest</title>
+	<link rel="stylesheet" type="text/css" href="weather.css">
+	<script type="text/javascript">
+		var newWeather, theImage, weatherInfo;
+		window.onload = function () {
+			newWeather = {};
+			theImage = document.getElementById('mainIcon');
+			theImage.onclick = showLocation;
+		}
+
+		function mainFunction() {
+			var xmlhttp = new XMLHttpRequest();
+
+			var city = document.getElementById('inputCity').value;
+			var url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + ",us&units=imperial";
+
+			xmlhttp.onreadystatechange = function () {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					var data = JSON.parse(xmlhttp.responseText);
+
+					var newWeather = getStringVersion(data);
+
+					switch (newWeather.wMain) {
+					case "Clouds":
+						theImage.src = "Two_clouds_outlined_symbol_of_stroke_for_weather_interface_512.png";
+						document.getElementById('mainIcon').className = 'smallExpand';
+						break;
+					case "Rain":
+						theImage.src = "Raindrops_falling_of_a_black_cloud_512.png";
+						document.getElementById('mainIcon').className = 'smallExpand';
+						break;
+					default:
+						theImage.src = "White_balance_sunlight_mode_512.png";
+						document.getElementById('mainIcon').className = 'rotateIt';
+						break;
+					}
+
+
+
+					weatherInfo = [newWeather.location, newWeather.lon, newWeather.lat];
+					document.getElementById('output').innerHTML = newWeather.location + "<br>" + newWeather.temperature + "<br>" + newWeather.wType;
+				}
+			}
+			xmlhttp.open("GET", url, true);
+			xmlhttp.send();
+
+
+		}
+
+		function weatherObject(place, wMain, weatherType, temp, lon, lat) {
+			this.location = place;
+			this.wMain = wMain;
+			this.wType = weatherType;
+			this.temperature = temp;
+			this.lon = lon;
+			this.lat = lat;
+		}
+
+		function getStringVersion(data) {
+			var theWeather = new weatherObject(data.name, data.weather[0].main, data.weather[0].description, data.main.temp, data.coord.lon, data.coord.lat);
+			return theWeather;
+		}
+
+		function showLocation() {
+			var popOut = document.createElement('div');
+			popOut.id = "overTop";
+			var text = weatherInfo[0] + " is located at coordinates " + weatherInfo[1] + " " + weatherInfo[2];
+			var textNode = document.createTextNode(text);
+			popOut.appendChild(textNode);
+
+			document.body.appendChild(popOut);
+			document.getElementById('overlay').setAttribute('style', "z-index: -1; opacity: .8");
+
+			/*			document.body.addEventListener('click', function(){
+							alert();
+							document.body.removeChild(popOut);	
+						});*/
+
+
+		}
+	</script>
+
+</head>
+
+
+<body>
+	<div id="wrapper">
+
+		<h1>Weather Forecast</h1>
+
+		<div id="display">
+			<img src="Thermometer_outlined_symbol_of_stroke_512.png" id="mainIcon" class="load">
+			<!--			<div id="credit">Icon made by <a href="http://yanlu.de" title="Yannick">Yannick</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>-->
+			<div id="output"></div>
+		</div>
+
+		<h3> Please Enter a city</h3>
+		<div id="controls">
+			<input type="text" value="Rexburg" id="inputCity">
+			<button type="button" onclick="mainFunction()">See current Temperture</button>
+		</div>
+		<div id="overlay"></div>
+
+
+
+
+
+	</div>
+
+
+
+
+</body>
+
+</html>
